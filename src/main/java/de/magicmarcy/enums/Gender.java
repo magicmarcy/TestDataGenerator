@@ -1,10 +1,12 @@
 package de.magicmarcy.enums;
 
 /**
- * @author magicmarcy | 23.05.2025
+ * Enum representing the gender to choose a name gender-specific name.
+ *
+ * @author magicmarcy
  */
 public enum Gender {
   MALE,
   FEMALE,
-  DIVERSE,
+  DIVERSE
 }

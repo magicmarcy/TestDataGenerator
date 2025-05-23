@@ -36,26 +36,53 @@ public final class Lastname {
   /** Path to the lastnames file */
   private static final String LASTNAMES_FILE = "names/lastnames.txt";
 
+  /**
+   * Default constructor to prevent instantiation.
+   */
   private Lastname() {
     // Prevent instantiation
   }
 
+  /**
+   * Creates a new builder for generating last names.
+   *
+   * @return a new instance of {@link LastnameBuilder}
+   */
   public static LastnameBuilder builder() {
     return new LastnameBuilder();
   }
 
+  /**
+   * Builder class for generating last names.
+   */
   public static class LastnameBuilder {
     private int count = DEFAULT_COUNT;
 
+    /**
+     * Sets the number of last names to generate.
+     *
+     * @param count the number of last names
+     * @return this builder
+     */
     public LastnameBuilder count(final int count) {
       this.count = count;
       return this;
     }
 
+    /**
+     * Generates a single random last name.
+     *
+     * @return a random last name
+     */
     public String buildOne() {
       return buildList().get(0);
     }
 
+    /**
+     * Generates a list of random last names.
+     *
+     * @return a list of random last names
+     */
     public List<String> buildList() {
       final List<String> sourceNames = new ArrayList<>(loadNames(LASTNAMES_FILE));
       final List<String> result = new ArrayList<>();
@@ -67,6 +94,12 @@ public final class Lastname {
       return result;
     }
 
+    /**
+     * Loads names from the specified file.
+     *
+     * @param path the path to the file
+     * @return a list of names
+     */
     private static List<String> loadNames(final String path) {
       try (final InputStream is = Lastname.class.getClassLoader().getResourceAsStream(path)) {
         if (is == null) {
@@ -84,6 +117,12 @@ public final class Lastname {
       }
     }
 
+    /**
+     * Returns a random element from the provided list.
+     *
+     * @param list the list to choose from
+     * @return a random element from the list
+     */
     private static String getRandom(final List<String> list) {
       return list.get(ThreadLocalRandom.current().nextInt(list.size()));
     }

@@ -3,7 +3,7 @@ package de.magicmarcy.dto;
 import java.util.List;
 
 /**
- * @author magicmarcy | 23.05.2025
+ * @author magicmarcy
  */
 public class Contact {
 

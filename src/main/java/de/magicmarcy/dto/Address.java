@@ -1,20 +1,43 @@
 package de.magicmarcy.dto;
 
 /**
- * @author magicmarcy | 23.05.2025
+ * DTO class representing an full address.
+ *
+ * @author magicmarcy
  */
 public class Address {
 
+  /** Street name and number */
   private String street;
+
+  /** City name */
   private String city;
+
+  /** State name */
   private String state;
+
+  /** Zip code */
   private String zipCode;
+
+  /** Country name */
   private String country;
 
+  /**
+   * Default constructor.
+   */
   public Address() {
     super();
   }
 
+  /**
+   * Constructor to initialize all fields.
+   *
+   * @param street  Street name and number
+   * @param city    City name
+   * @param state   State name
+   * @param zipCode Zip code
+   * @param country Country name
+   */
   public Address(final String street, final String city, final String state, final String zipCode, final String country) {
     this.street = street;
     this.city = city;
