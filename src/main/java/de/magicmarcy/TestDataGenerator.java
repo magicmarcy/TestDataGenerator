@@ -1,8 +1,7 @@
 package de.magicmarcy;
 
-/**
- * 
- *
- * @author magicmarcy | 23.05.2025
- */public class TestDataGenerator {
+public class TestDataGenerator {
+  public static PersonGenerator personList(int count) {
+    return new PersonGenerator(count);
+  }
 }

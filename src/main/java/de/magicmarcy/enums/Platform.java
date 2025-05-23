@@ -1,0 +1,48 @@
+package de.magicmarcy.enums;
+
+/**
+ * @author magicmarcy | 23.05.2025
+ */
+public enum Platform {
+  FACEBOOK("Facebook", "https://www.facebook.com/"),
+  TWITTER("Twitter", "https://twitter.com/"),
+  INSTAGRAM("Instagram", "https://www.instagram.com/"),
+  LINKEDIN("LinkedIn", "https://www.linkedin.com/"),
+  GITHUB("GitHub", "https://github.com/"),
+  YOUTUBE("YouTube", "https://www.youtube.com/"),
+  TIKTOK("TikTok", "https://www.tiktok.com/"),
+  SNAPCHAT("Snapchat", "https://www.snapchat.com/");
+
+  private final String name;
+  private final String url;
+
+  Platform(final String name, final String url) {
+    this.name = name;
+    this.url = url;
+  }
+
+  public String getName() {
+    return name;
+  }
+
+  public String getUrl() {
+    return url;
+  }
+
+  public static String getProfileUrl(final Platform platform, final String username) {
+    if (platform.url.contains("%s")) {
+      return String.format(platform.url, username);
+    } else {
+      return switch (platform) {
+        case FACEBOOK -> platform.url + username;
+        case TWITTER -> platform.url + username;
+        case INSTAGRAM -> platform.url + username;
+        case LINKEDIN -> platform.url + "in/" + username;
+        case GITHUB -> platform.url + username;
+        case YOUTUBE -> platform.url + "@" + username;
+        case TIKTOK -> platform.url + "@" + username;
+        case SNAPCHAT -> platform.url + "add/" + username;
+      };
+    }
+  }
+}
