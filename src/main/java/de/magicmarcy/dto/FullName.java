@@ -1,7 +1,7 @@
 package de.magicmarcy.dto;
 
 /**
- * @author magicmarcy | 23.05.2025
+ * @author magicmarcy
  */
 public class FullName {
 

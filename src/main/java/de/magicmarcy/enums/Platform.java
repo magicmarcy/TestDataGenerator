@@ -3,7 +3,7 @@ package de.magicmarcy.enums;
 /**
  * Enum representing various social media platforms and their URLs.
  *
- * @author magicmarcy | 23.05.2025
+ * @author magicmarcy
  */
 public enum Platform {
   FACEBOOK("Facebook", "https://www.facebook.com/"),

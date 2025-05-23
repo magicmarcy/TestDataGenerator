@@ -3,7 +3,7 @@ package de.magicmarcy.dto;
 import java.time.LocalDate;
 
 /**
- * @author magicmarcy | 23.05.2025
+ * @author magicmarcy
  */
 public class Person {
 
