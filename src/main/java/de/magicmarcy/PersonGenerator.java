@@ -12,7 +12,7 @@ public class PersonGenerator {
   public PersonGenerator(int count) {
     this.persons = IntStream.range(0, count)
         .mapToObj(i -> new Person())
-        .collect(Collectors.toList());
+        .toList();
   }
 
   public PersonGenerator withBirthDates() {

@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 /**
  * @author magicmarcy | 23.05.2025
  */
-public class LastnameTest {
+class LastnameTest {
 
   @Test
   void get_one_random_lastname() {

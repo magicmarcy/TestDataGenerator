@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 /**
  * @author magicmarcy | 23.05.2025
  */
-public class BirthdateTest {
+class BirthdateTest {
 
   @Test
   void get_one_random_birthdate() {
