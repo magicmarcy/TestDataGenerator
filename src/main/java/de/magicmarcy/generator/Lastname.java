@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+import de.magicmarcy.enums.CountryCode;
 import de.magicmarcy.exceptions.NameLoadingException;
 import de.magicmarcy.exceptions.ResourceNotFoundException;
 
@@ -34,7 +35,7 @@ public final class Lastname {
   private static final int DEFAULT_COUNT = 1;
 
   /** Path to the lastnames file */
-  private static final String LASTNAMES_FILE = "names/lastnames.txt";
+  private static final String LASTNAMES_FILE = "files/lastnames.txt";
 
   /**
    * Default constructor to prevent instantiation.
@@ -57,6 +58,7 @@ public final class Lastname {
    */
   public static class LastnameBuilder {
     private int count = DEFAULT_COUNT;
+    private CountryCode countryCode = null;
 
     /**
      * Sets the number of last names to generate.
@@ -70,7 +72,18 @@ public final class Lastname {
     }
 
     /**
-     * Generates a single random last name.
+     * Sets the country of last names to generate.
+     *
+     * @param countryCode the country for the last names
+     * @return this builder
+     */
+    public LastnameBuilder country(final CountryCode countryCode) {
+      this.countryCode = countryCode;
+      return this;
+    }
+
+    /**
+     * Generates a random last name.
      *
      * @return a random last name
      */
@@ -79,12 +92,21 @@ public final class Lastname {
     }
 
     /**
-     * Generates a list of random last names.
+     * Generates a list of random last names. If the countrycode was not set there will be a random name chosen from all available countries.
      *
      * @return a list of random last names
      */
     public List<String> buildList() {
-      final List<String> sourceNames = new ArrayList<>(loadNames(LASTNAMES_FILE));
+      final List<String> sourceNames = new ArrayList<>();
+
+      if (this.countryCode == null) {
+        for (final CountryCode country : CountryCode.values()) {
+          sourceNames.addAll(loadNames("files/" + country.getFoldername() + "/lastnames.txt"));
+        }
+      } else {
+        sourceNames.addAll(loadNames("files/" + this.countryCode.getFoldername() + "/lastnames.txt"));
+      }
+
       final List<String> result = new ArrayList<>();
 
       for (int i = 0; i < this.count; i++) {
