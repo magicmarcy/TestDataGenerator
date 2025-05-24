@@ -1,0 +1,50 @@
+Hauptstraße
+Schulstraße
+Bahnhofstraße
+Gartenstraße
+Dorfstraße
+Bergstraße
+Feldstraße
+Waldstraße
+Kirchstraße
+Goethestraße
+Schillerstraße
+Mühlenstraße
+Rathausstraße
+Lindenstraße
+Hindenburgstraße
+Friedhofstraße
+Beethovenstraße
+Mozartstraße
+Rosenstraße
+Blumenstraße
+Ringstraße
+Brunnenstraße
+Friedrichstraße
+Uhlandstraße
+Industriestraße
+Erlenstraße
+Amselstraße
+Wiesenstraße
+Sonnenstraße
+Kastanienstraße
+Talstraße
+Am Sportplatz
+Weidenweg
+Birkenweg
+Nelkenstraße
+Drosselweg
+Schwanenweg
+Im Winkel
+Eichenweg
+Meisenweg
+Tannenweg
+Am Bahnhof
+Poststraße
+Zeppelinstraße
+Finkenweg
+Im Wiesengrund
+Schafweg
+Am Hang
+Heinrich-Heine-Straße
+Theodor-Heuss-Straße
