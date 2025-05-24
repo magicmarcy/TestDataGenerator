@@ -5,7 +5,7 @@ package de.magicmarcy.enums;
  *
  * @author magicmarcy
  */
-public enum Country {
+public enum CountryCode {
   FRANCE("+33"),
   USA("+1"),
   CHINA("+86"),
@@ -42,7 +42,7 @@ public enum Country {
 
   private final String telephoneCode;
 
-  Country(String telephoneCode) {
+  CountryCode(String telephoneCode) {
     this.telephoneCode = telephoneCode;
   }
 
