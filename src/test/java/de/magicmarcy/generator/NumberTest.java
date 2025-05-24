@@ -1,14 +1,12 @@
 package de.magicmarcy.generator;
 
-import java.time.LocalDate;
-
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
  * @author magicmarcy | 24.05.2025
  */
-public class NumberTest {
+class NumberTest {
 
   @Test
   void get_one_random_number() {

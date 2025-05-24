@@ -34,9 +34,6 @@ public final class Lastname {
   /** Default number of results to generate */
   private static final int DEFAULT_COUNT = 1;
 
-  /** Path to the lastnames file */
-  private static final String LASTNAMES_FILE = "files/lastnames.txt";
-
   /**
    * Default constructor to prevent instantiation.
    */

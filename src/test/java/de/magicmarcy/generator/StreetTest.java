@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Test;
 /**
  * @author magicmarcy | 24.05.2025
  */
-public class StreetTest {
+class StreetTest {
 
   @Test
   void get_one_random_streetname() {
