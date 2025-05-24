@@ -8,12 +8,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-import de.magicmarcy.enums.Gender;
+import de.magicmarcy.enums.GenderType;
 import de.magicmarcy.exceptions.NameLoadingException;
 import de.magicmarcy.exceptions.ResourceNotFoundException;
 
 /**
- * Creates random first names. Optional by {@link de.magicmarcy.enums.Gender}<br/>
+ * Creates random first names. Optional by {@link de.magicmarcy.enums.GenderType}<br/>
  * Use {@code Firstname.builder()} to get a builder.
  *
  * Example:
@@ -43,7 +43,7 @@ public final class Firstname {
   private static final int DEFAULT_COUNT = 1;
 
   /** Default gender for the generated names */
-  private static final Gender DEFAULT_GENDER = Gender.DIVERSE;
+  private static final GenderType DEFAULT_GENDER = GenderType.DIVERSE;
 
   /**
    * Default constructor to prevent instantiation.
@@ -69,7 +69,7 @@ public final class Firstname {
    */
   public static class FirstnameBuilder {
     private int count = DEFAULT_COUNT;
-    private Gender gender = DEFAULT_GENDER;
+    private GenderType gender = DEFAULT_GENDER;
 
     /**
      * Sets the number of first names to generate.
@@ -84,10 +84,10 @@ public final class Firstname {
 
     /**
      * Sets the gender for the generated first names.
-     * @param gender the {@link de.magicmarcy.enums.Gender}
+     * @param gender the {@link de.magicmarcy.enums.GenderType}
      * @return this builder
      */
-    public FirstnameBuilder gender(final Gender gender) {
+    public FirstnameBuilder gender(final GenderType gender) {
       this.gender = gender;
       return this;
     }
@@ -109,10 +109,10 @@ public final class Firstname {
     public List<String> buildList() {
       final List<String> sourceNames = new ArrayList<>();
 
-      if (this.gender == null || this.gender == Gender.DIVERSE) {
+      if (this.gender == null || this.gender == GenderType.DIVERSE) {
         sourceNames.addAll(loadNames(FIRSTNAMES_MALE_FILE));
         sourceNames.addAll(loadNames(FIRSTNAMES_FEMALE_FILE));
-      } else if (this.gender == Gender.MALE) {
+      } else if (this.gender == GenderType.MALE) {
         sourceNames.addAll(loadNames(FIRSTNAMES_MALE_FILE));
       } else {
         sourceNames.addAll(loadNames(FIRSTNAMES_FEMALE_FILE));

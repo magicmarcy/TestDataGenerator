@@ -1,6 +1,6 @@
 package de.magicmarcy.dto;
 
-import de.magicmarcy.enums.Platform;
+import de.magicmarcy.enums.PlatformType;
 
 /**
  * Represents a social media account of a person.
@@ -11,7 +11,7 @@ import de.magicmarcy.enums.Platform;
 public class Social {
 
   /** The social media platform. */
-  private final Platform platform;
+  private final PlatformType platform;
 
   /** The username of the account. */
   private final String username;
@@ -19,14 +19,14 @@ public class Social {
   /**
    * Default constructor for JSON deserialization.
    */
-  public Social(Platform platform, String username) {
+  public Social(PlatformType platform, String username) {
     this.platform = platform;
     this.username = username;
   }
 
   // Getter for each field
 
-  public Platform getPlatform() {
+  public PlatformType getPlatform() {
     return platform;
   }
 

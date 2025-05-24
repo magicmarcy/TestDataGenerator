@@ -1,6 +1,6 @@
 package de.magicmarcy.generator;
 
-import de.magicmarcy.enums.Gender;
+import de.magicmarcy.enums.GenderType;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -19,7 +19,7 @@ class FirstnameTest {
 
   @Test
   void get_one_random_female_firstname() {
-    final String firstname = Firstname.builder().gender(Gender.FEMALE).buildOne();
+    final String firstname = Firstname.builder().gender(GenderType.FEMALE).buildOne();
 
     Assertions.assertNotNull(firstname);
     Assertions.assertFalse(firstname.isEmpty());

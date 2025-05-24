@@ -5,7 +5,7 @@ package de.magicmarcy.enums;
  *
  * @author magicmarcy
  */
-public enum Platform {
+public enum PlatformType {
   FACEBOOK("Facebook", "https://www.facebook.com/"),
   TWITTER("Twitter", "https://twitter.com/"),
   INSTAGRAM("Instagram", "https://www.instagram.com/"),
@@ -18,7 +18,7 @@ public enum Platform {
   private final String name;
   private final String url;
 
-  Platform(final String name, final String url) {
+  PlatformType(final String name, final String url) {
     this.name = name;
     this.url = url;
   }
@@ -31,7 +31,7 @@ public enum Platform {
     return url;
   }
 
-  public static String getProfileUrl(final Platform platform, final String username) {
+  public static String getProfileUrl(final PlatformType platform, final String username) {
     if (platform.url.contains("%s")) {
       return String.format(platform.url, username);
     } else {

@@ -5,7 +5,7 @@ package de.magicmarcy.enums;
  *
  * @author magicmarcy
  */
-public enum Gender {
+public enum GenderType {
   MALE,
   FEMALE,
   DIVERSE
