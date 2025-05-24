@@ -5,45 +5,49 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
+import de.magicmarcy.enums.CountryCode;
 import de.magicmarcy.enums.GenderType;
 import de.magicmarcy.exceptions.NameLoadingException;
 import de.magicmarcy.exceptions.ResourceNotFoundException;
 
 /**
- * Creates random first names. Optional by {@link de.magicmarcy.enums.GenderType}<br/>
- * Use {@code Firstname.builder()} to get a builder.
- *
+ * Creates random first names. Optional by {@link de.magicmarcy.enums.GenderType} and by {@link de.magicmarcy.enums.CountryCode}<br/>
+ * If no CountryCode or no GenderType is specified, all names from all countries will be selected.<br/>
+ * <br/>
+ * Use {@code Firstname.builder()} to get a builder.<br/>
+ * <br/>
  * Example:
  * <pre>{@code
  * List<String> names = Firstname.builder()
  *     .count(10)
  *     .build();
  * }</pre>
- * or
+ * to get a list of 10 random first names for every gender and from any country, or
  * <pre>{@code
  *   final String name = Firstname.builder()
  *      .gender(Gender.FEMALE)
  *      .buildOne();
  * }</pre>
+ * for a single female firstname or
+ * <pre>{@code
+ *   final String name = Firstname.builder()
+ *      .gender(Gender.FEMALE)
+ *      .country(CountryCode.GERMANY)
+ *      .buildOne();
+ * }</pre>
+ * for a single female first name from Germany.
  *
  * @author magicmarcy
  */
 public final class Firstname {
 
-  /** Path to the file with the male first names */
-  private static final String FIRSTNAMES_MALE_FILE = "names/firstnames_male.txt";
-
-  /** Path to the file with the female first names */
-  private static final String FIRSTNAMES_FEMALE_FILE = "names/firstnames_female.txt";
-
   /** Default number of results to generate */
   private static final int DEFAULT_COUNT = 1;
-
-  /** Default gender for the generated names */
-  private static final GenderType DEFAULT_GENDER = GenderType.DIVERSE;
 
   /**
    * Default constructor to prevent instantiation.
@@ -69,7 +73,8 @@ public final class Firstname {
    */
   public static class FirstnameBuilder {
     private int count = DEFAULT_COUNT;
-    private GenderType gender = DEFAULT_GENDER;
+    private GenderType gender = null;
+    private CountryCode countryCode = null;
 
     /**
      * Sets the number of first names to generate.
@@ -79,6 +84,11 @@ public final class Firstname {
      */
     public FirstnameBuilder count(final int count) {
       this.count = count;
+      return this;
+    }
+
+    public FirstnameBuilder country(final CountryCode countryCode) {
+      this.countryCode = countryCode;
       return this;
     }
 
@@ -108,22 +118,64 @@ public final class Firstname {
      */
     public List<String> buildList() {
       final List<String> sourceNames = new ArrayList<>();
+      final List<GenderType> gendersToLoad = getGenderTypesList();
+      final List<CountryCode> countriesToLoad = getCountryCodesList();
 
-      if (this.gender == null || this.gender == GenderType.DIVERSE) {
-        sourceNames.addAll(loadNames(FIRSTNAMES_MALE_FILE));
-        sourceNames.addAll(loadNames(FIRSTNAMES_FEMALE_FILE));
-      } else if (this.gender == GenderType.MALE) {
-        sourceNames.addAll(loadNames(FIRSTNAMES_MALE_FILE));
-      } else {
-        sourceNames.addAll(loadNames(FIRSTNAMES_FEMALE_FILE));
-      }
+      fillSourceNamesList(gendersToLoad, countriesToLoad, sourceNames);
 
+      return createResultList(sourceNames);
+    }
+
+    private List<String> createResultList(List<String> sourceNames) {
       final List<String> result = new ArrayList<>();
 
       for (int i = 0; i < this.count; i++) {
         result.add(getRandom(sourceNames));
       }
       return result;
+    }
+
+    /**
+     * Fills the source names list with names from the given GenderTyoe and CountryCode
+     * @param gendersToLoad List of specified GenderType (all if not specified
+     * @param countriesToLoad List of specified CountryCode (all if not specified)
+     * @param sourceNames ResultList with names
+     */
+    private void fillSourceNamesList(List<GenderType> gendersToLoad, List<CountryCode> countriesToLoad, List<String> sourceNames) {
+      for (GenderType selectedGenderType : gendersToLoad) {
+        for (CountryCode selectedCountryCode : countriesToLoad) {
+          String path = "files/" + selectedCountryCode.getFoldername() + "/firstnames_" + selectedGenderType.getFileNamePart() + ".txt";
+          sourceNames.addAll(loadNames(path));
+        }
+      }
+    }
+
+    /**
+     * Returns a list of country codes to load names from.
+     * @return a list of {@link de.magicmarcy.enums.CountryCode}
+     */
+    private List<CountryCode> getCountryCodesList() {
+      final List<CountryCode> countriesToLoad;
+      if (this.countryCode == null) {
+        countriesToLoad = Arrays.asList(CountryCode.values());
+      } else {
+        countriesToLoad = Collections.singletonList(this.countryCode);
+      }
+      return countriesToLoad;
+    }
+
+    /**
+     * Returns a list of gender types to load names from.
+     * @return a list of {@link de.magicmarcy.enums.GenderType}
+     */
+    private List<GenderType> getGenderTypesList() {
+      final List<GenderType> gendersToLoad;
+      if (this.gender == null) {
+        gendersToLoad = Arrays.asList(GenderType.values());
+      } else {
+        gendersToLoad = Collections.singletonList(this.gender);
+      }
+      return gendersToLoad;
     }
 
     /**
