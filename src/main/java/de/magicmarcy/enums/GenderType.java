@@ -6,7 +6,16 @@ package de.magicmarcy.enums;
  * @author magicmarcy
  */
 public enum GenderType {
-  MALE,
-  FEMALE,
-  DIVERSE
+  MALE("male"),
+  FEMALE("female");
+
+  private final String fileNamePart;
+
+  GenderType(String fileNamePart) {
+    this.fileNamePart = fileNamePart;
+  }
+
+  public String getFileNamePart() {
+    return fileNamePart;
+  }
 }
