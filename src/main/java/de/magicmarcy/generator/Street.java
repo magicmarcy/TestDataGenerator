@@ -9,16 +9,13 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import de.magicmarcy.enums.CountryCode;
-import de.magicmarcy.exceptions.NameLoadingException;
+import de.magicmarcy.exceptions.FileContentLoadingException;
 import de.magicmarcy.exceptions.ResourceNotFoundException;
 
 public class Street {
 
   /** Default number of results to generate */
   private static final int DEFAULT_COUNT = 1;
-
-  /** Path to the streetnames file */
-  private static final String STREETNAMES_FILE = "files/de/streetnames_de.txt";
 
   /**
    * Default constructor to prevent instantiation.
@@ -80,7 +77,16 @@ public class Street {
      * @return a list of random street names
      */
     public List<String> buildList() {
-      final List<String> sourceNames = new ArrayList<>(loadStreets(STREETNAMES_FILE));
+      final List<String> sourceNames = new ArrayList<>();
+
+      if (this.countryCode == null) {
+        for (final CountryCode code : CountryCode.values()) {
+          sourceNames.addAll(loadStreets("files/" + code.getFoldername() + "/streetnames.txt"));
+        }
+      } else {
+        sourceNames.addAll(loadStreets("files/" + this.countryCode.getFoldername() + "/streetnames.txt"));
+      }
+
       final List<String> result = new ArrayList<>();
 
       for (int i = 0; i < this.count; i++) {
@@ -109,7 +115,7 @@ public class Street {
             .toList();
 
       } catch (final IOException e) {
-        throw new NameLoadingException("Error loading streets", e);
+        throw new FileContentLoadingException("Error loading streets", e);
       }
     }
 
