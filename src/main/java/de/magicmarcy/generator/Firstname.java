@@ -12,7 +12,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import de.magicmarcy.enums.CountryCode;
 import de.magicmarcy.enums.GenderType;
-import de.magicmarcy.exceptions.NameLoadingException;
+import de.magicmarcy.exceptions.FileContentLoadingException;
 import de.magicmarcy.exceptions.ResourceNotFoundException;
 
 /**
@@ -197,7 +197,7 @@ public final class Firstname {
             .toList();
 
       } catch (final IOException e) {
-        throw new NameLoadingException("Error loading names", e);
+        throw new FileContentLoadingException("Error loading names", e);
       }
     }
 

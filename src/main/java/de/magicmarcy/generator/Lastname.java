@@ -9,13 +9,13 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import de.magicmarcy.enums.CountryCode;
-import de.magicmarcy.exceptions.NameLoadingException;
+import de.magicmarcy.exceptions.FileContentLoadingException;
 import de.magicmarcy.exceptions.ResourceNotFoundException;
 
 /**
  * Creates random last names. <br/>
  * Use {@code Lastname.builder()} to get a builder.
- *
+ * <br/>
  * Example:
  * <pre>{@code
  * List<String> names = Lastname.builder()
@@ -132,7 +132,7 @@ public final class Lastname {
             .toList();
 
       } catch (final IOException e) {
-        throw new NameLoadingException("Error loading names", e);
+        throw new FileContentLoadingException("Error loading names", e);
       }
     }
 
