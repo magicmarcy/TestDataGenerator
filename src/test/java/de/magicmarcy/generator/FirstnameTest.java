@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
- * @author magicmarcy | 23.05.2025
+ * @author magicmarcy
  */
 class FirstnameTest {
 
