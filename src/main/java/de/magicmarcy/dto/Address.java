@@ -1,5 +1,7 @@
 package de.magicmarcy.dto;
 
+import de.magicmarcy.enums.CountryCode;
+
 /**
  * DTO class representing an full address.
  *
@@ -20,7 +22,7 @@ public class Address {
   private String zipCode;
 
   /** Country name */
-  private String country;
+  private CountryCode country;
 
   /**
    * Default constructor.
@@ -38,7 +40,7 @@ public class Address {
    * @param zipCode Zip code
    * @param country Country name
    */
-  public Address(final String street, final String city, final String state, final String zipCode, final String country) {
+  public Address(final String street, final String city, final String state, final String zipCode, final CountryCode country) {
     this.street = street;
     this.city = city;
     this.state = state;
@@ -80,11 +82,11 @@ public class Address {
     this.zipCode = zipCode;
   }
 
-  public String getCountry() {
+  public CountryCode getCountry() {
     return country;
   }
 
-  public void setCountry(final String country) {
+  public void setCountry(final CountryCode country) {
     this.country = country;
   }
 
@@ -95,7 +97,7 @@ public class Address {
         ", city='" + city + '\'' +
         ", state='" + state + '\'' +
         ", zipCode='" + zipCode + '\'' +
-        ", country='" + country + '\'' +
+        ", country='" + country.name() + '\'' +
         '}';
   }
 }
