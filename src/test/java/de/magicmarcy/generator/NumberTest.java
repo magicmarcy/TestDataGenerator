@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 /**
- * @author magicmarcy | 24.05.2025
+ * @author magicmarcy
  */
 class NumberTest {
 
@@ -13,7 +13,7 @@ class NumberTest {
     final int number = Number.builder().buildOne();
 
     for (int i = 0; i < 100; i++) {
-      Assertions.assertTrue(number >= 0 && number <= 100);
+      Assertions.assertTrue(number >= Number.DEFAULT_FROM && number <= Number.DEFAULT_TO);
     }
   }
 

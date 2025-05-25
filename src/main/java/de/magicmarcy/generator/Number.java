@@ -5,7 +5,7 @@ import java.util.concurrent.ThreadLocalRandom;
 /**
  * Creates a random number.<br/>
  * Use {@code Number.builder()} to get a builder.
- *
+ * <br/>
  * Example:
  * <pre>{@code
  * final int number = Number.builder()
@@ -22,8 +22,8 @@ import java.util.concurrent.ThreadLocalRandom;
  */
 public final class Number {
 
-  private static final int DEFAULT_FROM = 0;
-  private static final int DEFAULT_TO = 100;
+  public static final int DEFAULT_FROM = 0;
+  public static final int DEFAULT_TO = 100;
 
   private Number() {
     // private constructor to prevent instantiation
