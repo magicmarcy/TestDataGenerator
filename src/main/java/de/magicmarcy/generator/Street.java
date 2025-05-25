@@ -17,6 +17,11 @@ public class Street {
   /** Default number of results to generate */
   private static final int DEFAULT_COUNT = 1;
 
+  public static final int MINIMUM_STREET_NUMBER_DE = 1;
+  public static final int MAXIMUM_STREET_NUMBER_DE = 299;
+  public static final int MINIMUM_STREET_NUMBER_EN = 1000;
+  public static final int MAXIMUM_STREET_NUMBER_EN = 9999;
+
   /**
    * Default constructor to prevent instantiation.
    */
@@ -39,6 +44,7 @@ public class Street {
   public static class StreetBuilder {
     private int count = DEFAULT_COUNT;
     private CountryCode countryCode = null;
+    private boolean withNumber = false;
 
     /**
      * Sets the number of street names to generate.
@@ -59,6 +65,11 @@ public class Street {
      */
     public StreetBuilder country(final CountryCode countryCode) {
       this.countryCode = countryCode;
+      return this;
+    }
+
+    public StreetBuilder withNumber() {
+      this.withNumber = true;
       return this;
     }
 
@@ -87,13 +98,23 @@ public class Street {
         sourceNames.addAll(loadStreets("files/" + this.countryCode.getFoldername() + "/streetnames.txt"));
       }
 
-      final List<String> result = new ArrayList<>();
+      final List<String> resultList = new ArrayList<>();
 
       for (int i = 0; i < this.count; i++) {
-        result.add(getRandom(sourceNames));
+        String streetResult = getRandom(sourceNames);
+
+        if (this.withNumber) {
+          if (this.countryCode == CountryCode.GERMANY) {
+            streetResult += " " + ThreadLocalRandom.current().nextInt(MINIMUM_STREET_NUMBER_DE, MAXIMUM_STREET_NUMBER_DE);
+          } else if (this.countryCode == CountryCode.USA) {
+            streetResult = ThreadLocalRandom.current().nextInt(MINIMUM_STREET_NUMBER_EN, MAXIMUM_STREET_NUMBER_EN) + " " + streetResult;
+          }
+        }
+
+        resultList.add(streetResult);
       }
 
-      return result;
+      return resultList;
     }
 
     /**
