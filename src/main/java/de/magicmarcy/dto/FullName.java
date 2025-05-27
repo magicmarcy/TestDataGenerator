@@ -12,7 +12,7 @@ public class FullName {
     super();
   }
 
-  public FullName(final String surname, final String lastname) {
+  public FullName(String surname, String lastname) {
     this.surname = surname;
     this.lastname = lastname;
   }
@@ -21,7 +21,7 @@ public class FullName {
     return this.surname;
   }
 
-  public void setSurname(final String surname) {
+  public void setSurname(String surname) {
     this.surname = surname;
   }
 
@@ -29,7 +29,7 @@ public class FullName {
     return this.lastname;
   }
 
-  public void setLastname(final String lastname) {
+  public void setLastname(String lastname) {
     this.lastname = lastname;
   }
 

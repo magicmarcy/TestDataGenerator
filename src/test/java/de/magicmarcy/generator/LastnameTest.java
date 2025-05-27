@@ -11,7 +11,7 @@ class LastnameTest {
 
   @Test
   void get_one_random_lastname() {
-    final String lastname = Lastname.builder().buildOne();
+    String lastname = Lastname.builder().buildOne();
 
     Assertions.assertNotNull(lastname);
     Assertions.assertFalse(lastname.isEmpty());
@@ -19,7 +19,7 @@ class LastnameTest {
 
   @Test
   void get_one_random_german_lastname() {
-    final String lastname = Lastname.builder().country(CountryCode.GERMANY).buildOne();
+    String lastname = Lastname.builder().country(CountryCode.GERMANY).buildOne();
 
     Assertions.assertNotNull(lastname);
     Assertions.assertFalse(lastname.isEmpty());
@@ -27,7 +27,7 @@ class LastnameTest {
 
   @Test
   void get_one_random_english_lastname() {
-    final String lastname = Lastname.builder().country(CountryCode.USA).buildOne();
+    String lastname = Lastname.builder().country(CountryCode.USA).buildOne();
 
     Assertions.assertNotNull(lastname);
     Assertions.assertFalse(lastname.isEmpty());

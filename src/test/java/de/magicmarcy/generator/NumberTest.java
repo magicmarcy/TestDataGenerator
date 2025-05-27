@@ -10,7 +10,7 @@ class NumberTest {
 
   @Test
   void get_one_random_number() {
-    final int number = Number.builder().buildOne();
+    int number = Number.builder().buildOne();
 
     for (int i = 0; i < 100; i++) {
       Assertions.assertTrue(number >= Number.DEFAULT_FROM && number <= Number.DEFAULT_TO);

@@ -5,7 +5,7 @@ package de.magicmarcy.exceptions;
  *
  * @author magicmarcy
  */
-public class ResourceNotFoundException extends RuntimeException {
+public final class ResourceNotFoundException extends RuntimeException {
 
   public ResourceNotFoundException(final String message, final Throwable cause) {
     super(message, cause);

@@ -12,10 +12,7 @@ import de.magicmarcy.enums.CountryCode;
 import de.magicmarcy.exceptions.FileContentLoadingException;
 import de.magicmarcy.exceptions.ResourceNotFoundException;
 
-public class Street {
-
-  /** Default number of results to generate */
-  private static final int DEFAULT_COUNT = 1;
+public final class Street {
 
   public static final int MINIMUM_STREET_NUMBER_DE = 1;
   public static final int MAXIMUM_STREET_NUMBER_DE = 299;
@@ -41,21 +38,9 @@ public class Street {
   /**
    * Builder class for generating street names.
    */
-  public static class StreetBuilder {
-    private int count = DEFAULT_COUNT;
+  public static final class StreetBuilder implements Generator<String> {
     private CountryCode countryCode = null;
     private boolean withNumber = false;
-
-    /**
-     * Sets the number of street names to generate.
-     *
-     * @param count the number of street names
-     * @return this builder
-     */
-    public StreetBuilder count(final int count) {
-      this.count = count;
-      return this;
-    }
 
     /**
      * Sets the country of street names to generate.
@@ -63,7 +48,7 @@ public class Street {
      * @param countryCode the country for the street names
      * @return this builder
      */
-    public StreetBuilder country(final CountryCode countryCode) {
+    public StreetBuilder country(CountryCode countryCode) {
       this.countryCode = countryCode;
       return this;
     }
@@ -78,8 +63,9 @@ public class Street {
      *
      * @return a random street name
      */
+    @Override
     public String buildOne() {
-      return buildList().get(0);
+      return build(1).get(0);
     }
 
     /**
@@ -87,20 +73,21 @@ public class Street {
      *
      * @return a list of random street names
      */
-    public List<String> buildList() {
-      final List<String> sourceNames = new ArrayList<>();
+    @Override
+    public List<String> build(int count) {
+      List<String> sourceNames = new ArrayList<>(count);
 
       if (this.countryCode == null) {
-        for (final CountryCode code : CountryCode.values()) {
+        for (CountryCode code : CountryCode.values()) {
           sourceNames.addAll(loadStreets("files/" + code.getFoldername() + "/streetnames.txt"));
         }
       } else {
         sourceNames.addAll(loadStreets("files/" + this.countryCode.getFoldername() + "/streetnames.txt"));
       }
 
-      final List<String> resultList = new ArrayList<>();
+      List<String> resultList = new ArrayList<>();
 
-      for (int i = 0; i < this.count; i++) {
+      for (int i = 0; i < count; i++) {
         String streetResult = getRandom(sourceNames);
 
         if (this.withNumber) {
@@ -123,8 +110,8 @@ public class Street {
      * @param path the path to the file
      * @return a list of streetnames
      */
-    private static List<String> loadStreets(final String path) {
-      try (final InputStream is = Lastname.class.getClassLoader().getResourceAsStream(path)) {
+    private static List<String> loadStreets(String path) {
+      try (InputStream is = Lastname.class.getClassLoader().getResourceAsStream(path)) {
         if (is == null) {
           throw new ResourceNotFoundException("File not found: " + path);
         }
@@ -135,7 +122,7 @@ public class Street {
             .filter(s -> !s.isEmpty())
             .toList();
 
-      } catch (final IOException e) {
+      } catch (IOException e) {
         throw new FileContentLoadingException("Error loading streets", e);
       }
     }
@@ -146,7 +133,7 @@ public class Street {
      * @param list the list to choose from
      * @return a random element from the list
      */
-    private static String getRandom(final List<String> list) {
+    private static String getRandom(List<String> list) {
       return list.get(ThreadLocalRandom.current().nextInt(list.size()));
     }
   }

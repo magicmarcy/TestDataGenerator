@@ -17,7 +17,7 @@ public class Contact {
     super();
   }
 
-  public Contact(final String name, final String surname, final String phone, final String email, final List<Social> socialAccounts) {
+  public Contact(String name, String surname, String phone, String email, List<Social> socialAccounts) {
     this.name = name;
     this.surname = surname;
     this.phone = phone;
@@ -31,7 +31,7 @@ public class Contact {
     return name;
   }
 
-  public void setName(final String name) {
+  public void setName(String name) {
     this.name = name;
   }
 
@@ -39,7 +39,7 @@ public class Contact {
     return surname;
   }
 
-  public void setSurname(final String surname) {
+  public void setSurname(String surname) {
     this.surname = surname;
   }
 
@@ -47,7 +47,7 @@ public class Contact {
     return phone;
   }
 
-  public void setPhone(final String phone) {
+  public void setPhone(String phone) {
     this.phone = phone;
   }
 
@@ -55,7 +55,7 @@ public class Contact {
     return email;
   }
 
-  public void setEmail(final String email) {
+  public void setEmail(String email) {
     this.email = email;
   }
 
@@ -63,7 +63,7 @@ public class Contact {
     return socialAccounts;
   }
 
-  public void setSocialAccounts(final List<Social> socialAccounts) {
+  public void setSocialAccounts(List<Social> socialAccounts) {
     this.socialAccounts = socialAccounts;
   }
 }

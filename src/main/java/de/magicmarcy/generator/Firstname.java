@@ -29,13 +29,13 @@ import de.magicmarcy.exceptions.ResourceNotFoundException;
  * }</pre>
  * to get a list of 10 random first names for every gender and from any country, or
  * <pre>{@code
- *   final String name = Firstname.builder()
+ *   String name = Firstname.builder()
  *      .gender(Gender.FEMALE)
  *      .buildOne();
  * }</pre>
  * for a single female firstname or
  * <pre>{@code
- *   final String name = Firstname.builder()
+ *   String name = Firstname.builder()
  *      .gender(Gender.FEMALE)
  *      .country(CountryCode.GERMANY)
  *      .buildOne();
@@ -45,9 +45,6 @@ import de.magicmarcy.exceptions.ResourceNotFoundException;
  * @author magicmarcy
  */
 public final class Firstname {
-
-  /** Default number of results to generate */
-  private static final int DEFAULT_COUNT = 1;
 
   /**
    * Default constructor to prevent instantiation.
@@ -71,23 +68,11 @@ public final class Firstname {
    * Use {@code Firstname.builder()} to get a builder.
    * </p>
    */
-  public static class FirstnameBuilder {
-    private int count = DEFAULT_COUNT;
+  public static final class FirstnameBuilder implements Generator<String> {
     private GenderType gender = null;
     private CountryCode countryCode = null;
 
-    /**
-     * Sets the number of first names to generate.
-     *
-     * @param count the number of first names
-     * @return this builder
-     */
-    public FirstnameBuilder count(final int count) {
-      this.count = count;
-      return this;
-    }
-
-    public FirstnameBuilder country(final CountryCode countryCode) {
+    public FirstnameBuilder country(CountryCode countryCode) {
       this.countryCode = countryCode;
       return this;
     }
@@ -97,7 +82,7 @@ public final class Firstname {
      * @param gender the {@link de.magicmarcy.enums.GenderType}
      * @return this builder
      */
-    public FirstnameBuilder gender(final GenderType gender) {
+    public FirstnameBuilder gender(GenderType gender) {
       this.gender = gender;
       return this;
     }
@@ -107,8 +92,9 @@ public final class Firstname {
      *
      * @return a random first name
      */
+    @Override
     public String buildOne() {
-      return buildList().get(0);
+      return build(1).get(0);
     }
 
     /**
@@ -116,20 +102,21 @@ public final class Firstname {
      *
      * @return a list of random first names
      */
-    public List<String> buildList() {
-      final List<String> sourceNames = new ArrayList<>();
-      final List<GenderType> gendersToLoad = getGenderTypesList();
-      final List<CountryCode> countriesToLoad = getCountryCodesList();
+    @Override
+    public List<String> build(int count) {
+      List<String> sourceNames = new ArrayList<>(count);
+      List<GenderType> gendersToLoad = getGenderTypesList();
+      List<CountryCode> countriesToLoad = getCountryCodesList();
 
       fillSourceNamesList(gendersToLoad, countriesToLoad, sourceNames);
 
-      return createResultList(sourceNames);
+      return createResultList(sourceNames, count);
     }
 
-    private List<String> createResultList(List<String> sourceNames) {
-      final List<String> result = new ArrayList<>();
+    private List<String> createResultList(List<String> sourceNames, int count) {
+      List<String> result = new ArrayList<>();
 
-      for (int i = 0; i < this.count; i++) {
+      for (int i = 0; i < count; i++) {
         result.add(getRandom(sourceNames));
       }
       return result;
@@ -155,12 +142,14 @@ public final class Firstname {
      * @return a list of {@link de.magicmarcy.enums.CountryCode}
      */
     private List<CountryCode> getCountryCodesList() {
-      final List<CountryCode> countriesToLoad;
+      List<CountryCode> countriesToLoad;
+
       if (this.countryCode == null) {
         countriesToLoad = Arrays.asList(CountryCode.values());
       } else {
         countriesToLoad = Collections.singletonList(this.countryCode);
       }
+
       return countriesToLoad;
     }
 
@@ -169,12 +158,14 @@ public final class Firstname {
      * @return a list of {@link de.magicmarcy.enums.GenderType}
      */
     private List<GenderType> getGenderTypesList() {
-      final List<GenderType> gendersToLoad;
+      List<GenderType> gendersToLoad;
+
       if (this.gender == null) {
         gendersToLoad = Arrays.asList(GenderType.values());
       } else {
         gendersToLoad = Collections.singletonList(this.gender);
       }
+
       return gendersToLoad;
     }
 
@@ -184,8 +175,8 @@ public final class Firstname {
      * @param path the path to the file
      * @return a list of names
      */
-    private static List<String> loadNames(final String path) {
-      try (final InputStream is = Firstname.class.getClassLoader().getResourceAsStream(path)) {
+    private static List<String> loadNames(String path) {
+      try (InputStream is = Firstname.class.getClassLoader().getResourceAsStream(path)) {
         if (is == null) {
           throw new ResourceNotFoundException("File not found: " + path);
         }
@@ -196,7 +187,7 @@ public final class Firstname {
             .filter(s -> !s.isEmpty())
             .toList();
 
-      } catch (final IOException e) {
+      } catch (IOException e) {
         throw new FileContentLoadingException("Error loading names", e);
       }
     }
@@ -207,7 +198,7 @@ public final class Firstname {
      * @param list the list of names
      * @return a random name
      */
-    private static String getRandom(final List<String> list) {
+    private static String getRandom(List<String> list) {
       return list.get(ThreadLocalRandom.current().nextInt(list.size()));
     }
   }

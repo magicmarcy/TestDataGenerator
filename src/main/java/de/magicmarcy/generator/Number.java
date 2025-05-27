@@ -1,5 +1,6 @@
 package de.magicmarcy.generator;
 
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 /**
@@ -8,12 +9,12 @@ import java.util.concurrent.ThreadLocalRandom;
  * <br/>
  * Example:
  * <pre>{@code
- * final int number = Number.builder()
+ * int number = Number.builder()
  *     .buildOne();
  * }</pre>
  * or
  * <pre>{@code
- *   final int number = Number.builder()
+ *   int number = Number.builder()
  *      .range(10, 20)
  *      .buildOne();
  * }</pre>
@@ -47,7 +48,7 @@ public final class Number {
   /**
    * Builder class for generating random numbers.
    */
-  public static class NumberBuilder {
+  public static final class NumberBuilder implements Generator<Integer> {
     private int from = DEFAULT_FROM;
     private int to = DEFAULT_TO;
 
@@ -55,10 +56,10 @@ public final class Number {
      * Sets the range for generated numbers.
      *
      * @param from the minimum value (inclusive)
-     * @param to the maximum value (inclusive)
+     * @param to   the maximum value (inclusive)
      * @return this builder
      */
-    public NumberBuilder range(final int from, final int to) {
+    public NumberBuilder range(int from, int to) {
       this.from = from;
       this.to = to;
       return this;
@@ -66,10 +67,19 @@ public final class Number {
 
     /**
      * Generates a random number within the specified range.
+     *
      * @return a random number
      */
-    public int buildOne() {
-      return ThreadLocalRandom.current().nextInt(from, to + 1);
+    @Override
+    public Integer buildOne() {
+      return build(1).get(0);
+    }
+
+    @Override
+    public List<Integer> build(int count) {
+      return ThreadLocalRandom.current().ints(count, from, to + 1)
+          .boxed()
+          .toList();
     }
   }
 }

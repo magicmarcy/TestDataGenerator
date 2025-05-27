@@ -5,7 +5,7 @@ package de.magicmarcy.exceptions;
  *
  * @author magicmarcy
  */
-public class SameAgeException extends RuntimeException {
+public final class SameAgeException extends RuntimeException {
 
   public SameAgeException(final String message, final Throwable cause) {
     super(message, cause);

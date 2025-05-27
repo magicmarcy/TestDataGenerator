@@ -18,7 +18,7 @@ public class Person {
     super();
   }
 
-  public Person(final String name, final String surname, final LocalDate birthDate, final Address address, final String email, final String phoneNumber) {
+  public Person(String name, String surname, LocalDate birthDate, Address address, String email, String phoneNumber) {
     this.name = name;
     this.surname = surname;
     this.birthDate = birthDate;
@@ -33,7 +33,7 @@ public class Person {
     return name;
   }
 
-  public void setName(final String name) {
+  public void setName(String name) {
     this.name = name;
   }
 
@@ -41,7 +41,7 @@ public class Person {
     return surname;
   }
 
-  public void setSurname(final String surname) {
+  public void setSurname(String surname) {
     this.surname = surname;
   }
 
@@ -49,7 +49,7 @@ public class Person {
     return birthDate;
   }
 
-  public void setBirthDate(final LocalDate birthDate) {
+  public void setBirthDate(LocalDate birthDate) {
     this.birthDate = birthDate;
   }
 
@@ -57,7 +57,7 @@ public class Person {
     return address;
   }
 
-  public void setAddress(final Address address) {
+  public void setAddress(Address address) {
     this.address = address;
   }
 
@@ -65,7 +65,7 @@ public class Person {
     return email;
   }
 
-  public void setEmail(final String email) {
+  public void setEmail(String email) {
     this.email = email;
   }
 
@@ -73,7 +73,7 @@ public class Person {
     return phoneNumber;
   }
 
-  public void setPhoneNumber(final String phoneNumber) {
+  public void setPhoneNumber(String phoneNumber) {
     this.phoneNumber = phoneNumber;
   }
 

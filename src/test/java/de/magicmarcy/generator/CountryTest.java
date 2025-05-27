@@ -14,7 +14,7 @@ class CountryTest {
 
   @Test
   void get_one_random_country() {
-    final CountryCode country = Country.builder().buildOne();
+    CountryCode country = Country.builder().buildOne();
 
     Assertions.assertNotNull(country);
     Assertions.assertFalse(country.getTelephoneCode().isEmpty());
@@ -22,7 +22,7 @@ class CountryTest {
 
   @Test
   void get_10_random_countries() {
-    final List<CountryCode> country = Country.builder().count(10).build();
+    List<CountryCode> country = Country.builder().build(10);
 
     Assertions.assertNotNull(country);
     Assertions.assertFalse(country.isEmpty());
@@ -30,7 +30,7 @@ class CountryTest {
 
     Set<CountryCode> callCuntryCodes = Set.of(CountryCode.values());
 
-    for (final CountryCode cc : country) {
+    for (CountryCode cc : country) {
       Assertions.assertTrue(callCuntryCodes.contains(cc));
     }
   }

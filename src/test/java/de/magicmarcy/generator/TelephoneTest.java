@@ -7,7 +7,7 @@ import org.junit.jupiter.api.Test;
 /**
  * @author magicmarcy
  */
-public class TelephoneTest {
+class TelephoneTest {
 
   @Test
   void get_a_random_german_telephone_number() {

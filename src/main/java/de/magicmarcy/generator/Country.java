@@ -11,9 +11,6 @@ import de.magicmarcy.enums.CountryCode;
  */
 public final class Country {
 
-  /** Default number of results to generate */
-  private static final int DEFAULT_COUNT = 1;
-
   /**
    * Default constructor to prevent instantiation.
    */
@@ -25,47 +22,38 @@ public final class Country {
     return new CountryBuilder();
   }
 
-  public static class CountryBuilder {
-    private int count = DEFAULT_COUNT;
-
-    /**
-     * Sets the number of countries to generate.
-     *
-     * @param count the number of countries
-     * @return this builder
-     */
-    public CountryBuilder count(int count) {
-      this.count = count;
-      return this;
-    }
-
-    /**
-     * Builds a random country or a list of random countries.
-     *
-     * @return a random country or a list of random countries
-     */
-    public List<CountryCode> build() {
-      final List<CountryCode> countries = new ArrayList<>();
-
-      for (int i = 0; i < this.count; i++) {
-        countries.add(getRandomCountry());
-      }
-
-      return countries;
-    }
+  public static final class CountryBuilder implements Generator<CountryCode> {
 
     /**
      * Generates a single random country.
      *
      * @return a random country
      */
+    @Override
     public CountryCode buildOne() {
-      return getRandomCountry();
+      return build(1).get(0);
     }
 
-    public static CountryCode getRandomCountry() {
+    /**
+     * Generates a random country list. Does not make many sense cause there are only two countries available.
+     *
+     * @return a random country
+     */
+    @Override
+    public List<CountryCode> build(int count) {
+      List<CountryCode> countries = new ArrayList<>(count);
+
+      for (int i = 0; i < count; i++) {
+        countries.add(getRandomCountry());
+      }
+
+      return countries;
+    }
+
+    private static CountryCode getRandomCountry() {
       CountryCode[] countries = CountryCode.values();
       int randomIndex = ThreadLocalRandom.current().nextInt(countries.length);
+
       return countries[randomIndex];
     }
   }

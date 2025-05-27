@@ -1,5 +1,7 @@
 package de.magicmarcy.generator;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 import de.magicmarcy.enums.CountryCode;
@@ -7,7 +9,7 @@ import de.magicmarcy.enums.CountryCode;
 /**
  * @author magicmarcy
  */
-public class Telephone {
+public final class Telephone {
 
   public static final int MINUIMUM_PREFIX_NUMBER = 200;
   public static final int MAXIMUM_PREFOX_NUMBER = 999;
@@ -24,7 +26,7 @@ public class Telephone {
     return new TelephoneBuilder();
   }
 
-  public static class TelephoneBuilder {
+  public static final class TelephoneBuilder implements Generator<String> {
     private CountryCode countryCode = null;
     private int minimumPrefixNumber = MINUIMUM_PREFIX_NUMBER;
     private int maximumPrefixNumber = MAXIMUM_PREFOX_NUMBER;
@@ -56,12 +58,24 @@ public class Telephone {
       return this;
     }
 
+    @Override
     public String buildOne() {
-      return generateTelephoneNumber();
+      return build(1).get(0);
+    }
+
+    @Override
+    public List<String> build(int count) {
+      List<String> resultList = new ArrayList<>(count);
+
+      for (int i = 0; i < count; i++) {
+        resultList.add(generateTelephoneNumber());
+      }
+
+      return resultList;
     }
 
     private String generateTelephoneNumber() {
-      final StringBuilder telephone = new StringBuilder();
+      StringBuilder telephone = new StringBuilder();
 
       // Telephone country prefix
       if (this.countryCode == null) {
@@ -84,7 +98,7 @@ public class Telephone {
     }
 
     private CountryCode pickRandomCountryCode() {
-      final CountryCode[] enumConstants = CountryCode.class.getEnumConstants();
+      CountryCode[] enumConstants = CountryCode.class.getEnumConstants();
 
       return enumConstants[ThreadLocalRandom.current().nextInt(enumConstants.length)];
     }

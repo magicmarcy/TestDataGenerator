@@ -26,7 +26,6 @@ public final class Birthdate {
 
   private static final int DEFAULT_MIN_AGE = 18;
   private static final int DEFAULT_MAX_AGE = 90;
-  private static final int DEFAULT_COUNT = 1;
 
   /**
    * Default constructor to prevent instantiation.
@@ -47,10 +46,9 @@ public final class Birthdate {
   /**
    * Builder class for generating birth dates.
    */
-  public static class BirthdateBuilder {
+  public static final class BirthdateBuilder implements Generator<LocalDate> {
     private int minAge = DEFAULT_MIN_AGE;
     private int maxAge = DEFAULT_MAX_AGE;
-    private int count = DEFAULT_COUNT;
 
     /**
      * Sets the minimum age for the generated birthdate.
@@ -71,19 +69,8 @@ public final class Birthdate {
      * @param maxAge the maximum age
      * @return this builder
      */
-    public BirthdateBuilder maxAge(final int maxAge) {
+    public BirthdateBuilder maxAge(int maxAge) {
       this.maxAge = maxAge;
-      return this;
-    }
-
-    /**
-     * Sets the number of birth dates to generate.
-     *
-     * @param count the number of birth dates
-     * @return this builder
-     */
-    public BirthdateBuilder count(final int count) {
-      this.count = count;
       return this;
     }
 
@@ -93,12 +80,13 @@ public final class Birthdate {
      * @return a random birth date
      * @throws SameAgeException if min and max age are the same
      */
+    @Override
     public LocalDate buildOne() {
       if (this.minAge == this.maxAge) {
         throw new SameAgeException("Min and max age must not be the same");
       }
 
-      return buildList().get(0);
+      return build(1).get(0);
     }
 
     /**
@@ -106,10 +94,12 @@ public final class Birthdate {
      *
      * @return a list of random birth dates
      */
-    public List<LocalDate> buildList() {
-      final List<LocalDate> birthDates = new ArrayList<>();
-      LocalDate minDate = LocalDate.now().minusYears(minAge);
-      LocalDate maxDate = LocalDate.now().minusYears(maxAge);
+    @Override
+    public List<LocalDate> build(int count) {
+      List<LocalDate> birthDates = new ArrayList<>(count);
+
+      LocalDate minDate = LocalDate.now().minusYears(this.minAge);
+      LocalDate maxDate = LocalDate.now().minusYears(this.maxAge);
 
       for (int i = 0; i < count; i++) {
         birthDates.add(getRandomBirthdate(minDate, maxDate));

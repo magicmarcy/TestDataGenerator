@@ -40,7 +40,7 @@ public class Address {
    * @param zipCode Zip code
    * @param country Country name
    */
-  public Address(final String street, final String city, final String state, final String zipCode, final CountryCode country) {
+  public Address(String street, String city, String state, String zipCode, CountryCode country) {
     this.street = street;
     this.city = city;
     this.state = state;
@@ -54,7 +54,7 @@ public class Address {
     return street;
   }
 
-  public void setStreet(final String street) {
+  public void setStreet(String street) {
     this.street = street;
   }
 
@@ -62,7 +62,7 @@ public class Address {
     return city;
   }
 
-  public void setCity(final String city) {
+  public void setCity(String city) {
     this.city = city;
   }
 
@@ -70,7 +70,7 @@ public class Address {
     return state;
   }
 
-  public void setState(final String state) {
+  public void setState(String state) {
     this.state = state;
   }
 
@@ -78,7 +78,7 @@ public class Address {
     return zipCode;
   }
 
-  public void setZipCode(final String zipCode) {
+  public void setZipCode(String zipCode) {
     this.zipCode = zipCode;
   }
 
@@ -86,7 +86,7 @@ public class Address {
     return country;
   }
 
-  public void setCountry(final CountryCode country) {
+  public void setCountry(CountryCode country) {
     this.country = country;
   }
 

@@ -18,7 +18,7 @@ public enum PlatformType {
   private final String name;
   private final String url;
 
-  PlatformType(final String name, final String url) {
+  PlatformType(String name, String url) {
     this.name = name;
     this.url = url;
   }
@@ -31,7 +31,7 @@ public enum PlatformType {
     return url;
   }
 
-  public static String getProfileUrl(final PlatformType platform, final String username) {
+  public static String getProfileUrl(PlatformType platform, String username) {
     if (platform.url.contains("%s")) {
       return String.format(platform.url, username);
     } else {

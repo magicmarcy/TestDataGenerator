@@ -24,15 +24,12 @@ import de.magicmarcy.exceptions.ResourceNotFoundException;
  * }</pre>
  * or
  * <pre>{@code
- *   final String name = Lastname.builder().buildOne();
+ *   String name = Lastname.builder().buildOne();
  * }</pre>
  *
  * @author magicmarcy
  */
 public final class Lastname {
-
-  /** Default number of results to generate */
-  private static final int DEFAULT_COUNT = 1;
 
   /**
    * Default constructor to prevent instantiation.
@@ -53,20 +50,8 @@ public final class Lastname {
   /**
    * Builder class for generating last names.
    */
-  public static class LastnameBuilder {
-    private int count = DEFAULT_COUNT;
+  public static final class LastnameBuilder implements Generator<String> {
     private CountryCode countryCode = null;
-
-    /**
-     * Sets the number of last names to generate.
-     *
-     * @param count the number of last names
-     * @return this builder
-     */
-    public LastnameBuilder count(final int count) {
-      this.count = count;
-      return this;
-    }
 
     /**
      * Sets the country of last names to generate.
@@ -74,7 +59,7 @@ public final class Lastname {
      * @param countryCode the country for the last names
      * @return this builder
      */
-    public LastnameBuilder country(final CountryCode countryCode) {
+    public LastnameBuilder country(CountryCode countryCode) {
       this.countryCode = countryCode;
       return this;
     }
@@ -84,8 +69,9 @@ public final class Lastname {
      *
      * @return a random last name
      */
+    @Override
     public String buildOne() {
-      return buildList().get(0);
+      return build(1).get(0);
     }
 
     /**
@@ -93,20 +79,21 @@ public final class Lastname {
      *
      * @return a list of random last names
      */
-    public List<String> buildList() {
-      final List<String> sourceNames = new ArrayList<>();
+    @Override
+    public List<String> build(int count) {
+      List<String> sourceNames = new ArrayList<>(count);
 
       if (this.countryCode == null) {
-        for (final CountryCode country : CountryCode.values()) {
+        for (CountryCode country : CountryCode.values()) {
           sourceNames.addAll(loadNames("files/" + country.getFoldername() + "/lastnames.txt"));
         }
       } else {
         sourceNames.addAll(loadNames("files/" + this.countryCode.getFoldername() + "/lastnames.txt"));
       }
 
-      final List<String> result = new ArrayList<>();
+      List<String> result = new ArrayList<>();
 
-      for (int i = 0; i < this.count; i++) {
+      for (int i = 0; i < count; i++) {
         result.add(getRandom(sourceNames));
       }
 
@@ -119,8 +106,8 @@ public final class Lastname {
      * @param path the path to the file
      * @return a list of names
      */
-    private static List<String> loadNames(final String path) {
-      try (final InputStream is = Lastname.class.getClassLoader().getResourceAsStream(path)) {
+    private static List<String> loadNames(String path) {
+      try (InputStream is = Lastname.class.getClassLoader().getResourceAsStream(path)) {
         if (is == null) {
           throw new ResourceNotFoundException("File not found: " + path);
         }
@@ -131,7 +118,7 @@ public final class Lastname {
             .filter(s -> !s.isEmpty())
             .toList();
 
-      } catch (final IOException e) {
+      } catch (IOException e) {
         throw new FileContentLoadingException("Error loading names", e);
       }
     }
@@ -142,7 +129,7 @@ public final class Lastname {
      * @param list the list to choose from
      * @return a random element from the list
      */
-    private static String getRandom(final List<String> list) {
+    private static String getRandom(List<String> list) {
       return list.get(ThreadLocalRandom.current().nextInt(list.size()));
     }
   }

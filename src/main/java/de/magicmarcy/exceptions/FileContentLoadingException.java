@@ -5,13 +5,13 @@ package de.magicmarcy.exceptions;
  *
  * @author magicmarcy
  */
-public class FileContentLoadingException extends RuntimeException {
+public final class FileContentLoadingException extends RuntimeException {
 
-  public FileContentLoadingException(final String message, final Throwable cause) {
+  public FileContentLoadingException(String message, Throwable cause) {
     super(message, cause);
   }
 
-  public FileContentLoadingException(final String message) {
+  public FileContentLoadingException(String message) {
     super(message);
   }
 }
