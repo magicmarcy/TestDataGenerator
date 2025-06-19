@@ -13,7 +13,7 @@ public sealed interface Generator<T>
       Lastname.LastnameBuilder,
       Number.NumberBuilder,
       Street.StreetBuilder,
-    Telephone.TelephoneBuilder {
+      Telephone.TelephoneBuilder {
 
   T buildOne();
 

@@ -34,7 +34,7 @@ class StreetTest {
   }
 
   @Test
-  void get_one_random_germann_streetname_with_number() {
+  void get_one_random_german_streetname_with_number() {
     final CountryCode countryCode = CountryCode.GERMANY;
 
     final String street = Street.builder().country(countryCode).withNumber().buildOne();
@@ -43,7 +43,10 @@ class StreetTest {
     Assertions.assertFalse(street.isEmpty());
 
     try {
-      int houseNumber = Integer.parseInt(street.split(" ")[1]);
+      // in a german street the number is always the last part of the street name
+      String[] streetParts = street.split(" ");
+      int houseNumber = Integer.parseInt(streetParts[streetParts.length - 1]);
+
       Assertions.assertTrue(houseNumber >= Street.MINIMUM_STREET_NUMBER_DE && houseNumber <= Street.MAXIMUM_STREET_NUMBER_DE);
     } catch (NumberFormatException e) {
       Assertions.fail("Streetno is not a number: " + street.split(" ")[1]);
@@ -60,6 +63,7 @@ class StreetTest {
     Assertions.assertFalse(street.isEmpty());
 
     try {
+      // in an english street the number is always the first part of the street name
       int houseNumber = Integer.parseInt(street.split(" ")[0]);
       Assertions.assertTrue(houseNumber >= Street.MINIMUM_STREET_NUMBER_EN && houseNumber <= Street.MAXIMUM_STREET_NUMBER_EN);
     } catch (NumberFormatException e) {

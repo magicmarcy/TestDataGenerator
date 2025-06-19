@@ -7,7 +7,7 @@ import de.magicmarcy.enums.CountryCode;
  *
  * @author magicmarcy
  */
-public class Address {
+public class AddressDTO {
 
   /** Street name and number */
   private String street;
@@ -27,7 +27,7 @@ public class Address {
   /**
    * Default constructor.
    */
-  public Address() {
+  public AddressDTO() {
     super();
   }
 
@@ -40,7 +40,7 @@ public class Address {
    * @param zipCode Zip code
    * @param country Country name
    */
-  public Address(String street, String city, String state, String zipCode, CountryCode country) {
+  public AddressDTO(String street, String city, String state, String zipCode, CountryCode country) {
     this.street = street;
     this.city = city;
     this.state = state;

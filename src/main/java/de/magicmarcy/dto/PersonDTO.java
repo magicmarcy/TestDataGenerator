@@ -5,20 +5,20 @@ import java.time.LocalDate;
 /**
  * @author magicmarcy
  */
-public class Person {
+public class PersonDTO {
 
   private String name;
   private String surname;
   private LocalDate birthDate;
-  private Address address;
+  private AddressDTO address;
   private String email;
   private String phoneNumber;
 
-  public Person() {
+  public PersonDTO() {
     super();
   }
 
-  public Person(String name, String surname, LocalDate birthDate, Address address, String email, String phoneNumber) {
+  public PersonDTO(String name, String surname, LocalDate birthDate, AddressDTO address, String email, String phoneNumber) {
     this.name = name;
     this.surname = surname;
     this.birthDate = birthDate;
@@ -53,11 +53,11 @@ public class Person {
     this.birthDate = birthDate;
   }
 
-  public Address getAddress() {
+  public AddressDTO getAddress() {
     return address;
   }
 
-  public void setAddress(Address address) {
+  public void setAddress(AddressDTO address) {
     this.address = address;
   }
 

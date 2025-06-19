@@ -5,19 +5,19 @@ import java.util.List;
 /**
  * @author magicmarcy
  */
-public class Contact {
+public class ContactDTO {
 
   private String name;
   private String surname;
   private String phone;
   private String email;
-  private List<Social> socialAccounts;
+  private List<SocialDTO> socialAccounts;
 
-  public Contact() {
+  public ContactDTO() {
     super();
   }
 
-  public Contact(String name, String surname, String phone, String email, List<Social> socialAccounts) {
+  public ContactDTO(String name, String surname, String phone, String email, List<SocialDTO> socialAccounts) {
     this.name = name;
     this.surname = surname;
     this.phone = phone;
@@ -59,11 +59,11 @@ public class Contact {
     this.email = email;
   }
 
-  public List<Social> getSocialAccounts() {
+  public List<SocialDTO> getSocialAccounts() {
     return socialAccounts;
   }
 
-  public void setSocialAccounts(List<Social> socialAccounts) {
+  public void setSocialAccounts(List<SocialDTO> socialAccounts) {
     this.socialAccounts = socialAccounts;
   }
 }

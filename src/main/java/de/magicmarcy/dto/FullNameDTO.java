@@ -3,16 +3,16 @@ package de.magicmarcy.dto;
 /**
  * @author magicmarcy
  */
-public class FullName {
+public class FullNameDTO {
 
   private String surname;
   private String lastname;
 
-  public FullName() {
+  public FullNameDTO() {
     super();
   }
 
-  public FullName(String surname, String lastname) {
+  public FullNameDTO(String surname, String lastname) {
     this.surname = surname;
     this.lastname = lastname;
   }

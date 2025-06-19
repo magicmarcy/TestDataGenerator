@@ -35,7 +35,7 @@ public final class Country {
     }
 
     /**
-     * Generates a random country list. Does not make many sense cause there are only two countries available.
+     * Generates a random country list. Does not make many sense cause there are only two countries available at the moment.
      *
      * @return a random country
      */

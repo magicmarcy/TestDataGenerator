@@ -16,9 +16,13 @@ import de.magicmarcy.exceptions.SameAgeException;
  * List<LocalDate> dates = Birthdate.builder()
  *     .minAge(20)
  *     .maxAge(60)
- *     .count(10)
- *     .build();
+ *     .build(10);
  * }</pre>
+ * to get a list of 10 random birthdates or
+ * <pre>{@code
+ * LocalDate date = Birthdate.builder().buildOne();
+ * }</pre>
+ * to get a single random birthdate.
  *
  * @author magicmarcy
  */

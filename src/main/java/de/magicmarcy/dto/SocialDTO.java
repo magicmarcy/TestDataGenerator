@@ -8,7 +8,7 @@ import de.magicmarcy.enums.PlatformType;
  *
  * @author magicmarcy
  */
-public class Social {
+public class SocialDTO {
 
   /** The social media platform. */
   private final PlatformType platform;
@@ -19,7 +19,7 @@ public class Social {
   /**
    * Default constructor for JSON deserialization.
    */
-  public Social(PlatformType platform, String username) {
+  public SocialDTO(PlatformType platform, String username) {
     this.platform = platform;
     this.username = username;
   }
