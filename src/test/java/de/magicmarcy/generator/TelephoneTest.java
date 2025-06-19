@@ -44,8 +44,6 @@ class TelephoneTest {
   void get_a_random_telephone_number() {
     final TelephoneDTO telephone = Telephone.builder().buildOne();
 
-    System.out.println(telephone.prettyPrint());
-
     Assertions.assertNotNull(telephone);
     Assertions.assertNotNull(telephone.getCountryPrefix());
     Assertions.assertNotNull(telephone.getCityPrefix());

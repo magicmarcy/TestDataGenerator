@@ -42,14 +42,15 @@ class StreetTest {
     Assertions.assertNotNull(street);
     Assertions.assertFalse(street.isEmpty());
 
+    String[] streetParts = street.split(" ");
+
     try {
       // in a german street the number is always the last part of the street name
-      String[] streetParts = street.split(" ");
       int houseNumber = Integer.parseInt(streetParts[streetParts.length - 1]);
 
       Assertions.assertTrue(houseNumber >= Street.MINIMUM_STREET_NUMBER_DE && houseNumber <= Street.MAXIMUM_STREET_NUMBER_DE);
     } catch (NumberFormatException e) {
-      Assertions.fail("Streetno is not a number: " + street.split(" ")[1]);
+      Assertions.fail("Streetno is not a number: " + street.split(" ")[streetParts.length - 1]);
     }
   }
 
@@ -62,12 +63,14 @@ class StreetTest {
     Assertions.assertNotNull(street);
     Assertions.assertFalse(street.isEmpty());
 
+    String[] streetParts = street.split(" ");
+
     try {
       // in an english street the number is always the first part of the street name
-      int houseNumber = Integer.parseInt(street.split(" ")[0]);
+      int houseNumber = Integer.parseInt(streetParts[0]);
       Assertions.assertTrue(houseNumber >= Street.MINIMUM_STREET_NUMBER_EN && houseNumber <= Street.MAXIMUM_STREET_NUMBER_EN);
     } catch (NumberFormatException e) {
-      Assertions.fail("Streetno is not a number: " + street.split(" ")[0]);
+      Assertions.fail("Streetno is not a number: " + streetParts[0]);
     }
   }
 }
